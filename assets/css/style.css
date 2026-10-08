@@ -114,7 +114,7 @@ h1{margin:.12em 0 0;font-family:var(--display);font-weight:900;font-size:clamp(7
 .ticket{
   all:unset;box-sizing:border-box;display:block;width:100%;height:100%;cursor:pointer;border-radius:8px;position:relative;scroll-margin:140px;
   filter:drop-shadow(0 1px 0 rgba(0,0,0,.45));
-  transition:transform .18s ease,filter .18s ease;
+  transition:transform .18s ease,filter .18s ease,opacity .45s ease;
 }
 .ticket:hover{transform:translateY(-3px) rotate(-.5deg);filter:drop-shadow(0 12px 18px rgba(0,0,0,.5))}
 .ticket:active{transform:translateY(-1px) scale(.98)}
@@ -144,36 +144,35 @@ h1{margin:.12em 0 0;font-family:var(--display);font-weight:900;font-size:clamp(7
 .ticket[aria-pressed="true"] .ticket__title{opacity:.5}
 .ticket[aria-pressed="true"] .ticket__stamp{opacity:1;transform:translate(-50%,-50%) rotate(-14deg) scale(1)}
 
-/* Picked ticket: flickers on like a marquee bulb, glows, a light sweeps across, then fades. */
+/* Pick: the house lights dim, the picked ticket flickers on like a marquee bulb, then the lights come back. */
+.grid.spotlight .ticket:not(.is-picked){opacity:.28}
 .ticket.is-picked{
-  --glow:var(--accent);
   z-index:2;
-  transform:scale(1.05);
-  filter:drop-shadow(0 0 3px var(--glow)) drop-shadow(0 0 16px var(--glow)) drop-shadow(0 0 34px color-mix(in srgb,var(--glow) 55%,transparent));
-  animation:ignite 3.2s ease-out both;
+  transform:scale(1.06);
+  filter:drop-shadow(0 0 2px var(--accent)) drop-shadow(0 0 14px color-mix(in srgb,var(--accent) 70%,transparent));
+  animation:ignite 3s ease both;
 }
-.ticket.is-picked .ticket__body{animation:warm 3.2s ease-out both}
+.ticket.is-picked .ticket__body{animation:warm 3s ease both}
 .ticket.is-picked .ticket__body::after{
   content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(110deg,transparent 36%,color-mix(in srgb,var(--accent) 35%,transparent) 45%,rgba(255,255,255,.8) 50%,color-mix(in srgb,var(--accent) 35%,transparent) 55%,transparent 64%) no-repeat;
   background-size:300% 100%;background-position:120% 0;
   opacity:0;
-  animation:sweep 1.1s cubic-bezier(.4,0,.2,1) .45s 2;
+  animation:sweep .9s cubic-bezier(.4,0,.2,1) .8s;
 }
+/* Crisp on/off flicker first (steps), then a smooth swell, hold and settle. */
 @keyframes ignite{
-  0%  {transform:scale(1);filter:drop-shadow(0 0 0 transparent)}
-  5%  {filter:drop-shadow(0 0 3px var(--glow)) drop-shadow(0 0 16px var(--glow)) drop-shadow(0 0 34px transparent)}
-  9%  {filter:drop-shadow(0 0 0 transparent)}
-  14% {filter:drop-shadow(0 0 3px var(--glow)) drop-shadow(0 0 16px var(--glow)) drop-shadow(0 0 34px transparent)}
-  17% {filter:drop-shadow(0 0 1px var(--glow)) drop-shadow(0 0 4px transparent) drop-shadow(0 0 0 transparent)}
-  24% {transform:scale(1.06);filter:drop-shadow(0 0 4px var(--glow)) drop-shadow(0 0 22px var(--glow)) drop-shadow(0 0 44px color-mix(in srgb,var(--glow) 60%,transparent))}
-  45% {transform:scale(1.05);filter:drop-shadow(0 0 3px var(--glow)) drop-shadow(0 0 12px var(--glow)) drop-shadow(0 0 26px color-mix(in srgb,var(--glow) 40%,transparent))}
-  65% {transform:scale(1.05);filter:drop-shadow(0 0 4px var(--glow)) drop-shadow(0 0 22px var(--glow)) drop-shadow(0 0 44px color-mix(in srgb,var(--glow) 60%,transparent))}
-  100%{transform:scale(1);filter:drop-shadow(0 0 0 transparent) drop-shadow(0 0 0 transparent) drop-shadow(0 0 0 transparent)}
+  0%     {transform:scale(1);filter:drop-shadow(0 0 0 transparent) drop-shadow(0 0 0 transparent);animation-timing-function:steps(1,end)}
+  6%     {filter:drop-shadow(0 0 2px var(--accent)) drop-shadow(0 0 14px color-mix(in srgb,var(--accent) 70%,transparent));animation-timing-function:steps(1,end)}
+  10%    {filter:drop-shadow(0 0 0 transparent) drop-shadow(0 0 0 transparent);animation-timing-function:steps(1,end)}
+  15%    {filter:drop-shadow(0 0 2px var(--accent)) drop-shadow(0 0 14px color-mix(in srgb,var(--accent) 70%,transparent));animation-timing-function:steps(1,end)}
+  19%    {transform:scale(1);filter:drop-shadow(0 0 1px var(--accent)) drop-shadow(0 0 4px transparent);animation-timing-function:cubic-bezier(.2,.8,.2,1)}
+  30%,78%{transform:scale(1.06);filter:drop-shadow(0 0 2px var(--accent)) drop-shadow(0 0 14px color-mix(in srgb,var(--accent) 70%,transparent));animation-timing-function:ease-in-out}
+  100%   {transform:scale(1);filter:drop-shadow(0 0 0 transparent) drop-shadow(0 0 0 transparent)}
 }
 @keyframes warm{
-  0%,9%{background-color:var(--paper)}
-  24%,65%{background-color:color-mix(in srgb,var(--paper) 82%,var(--accent))}
+  0%,19%{background-color:var(--paper)}
+  30%,78%{background-color:color-mix(in srgb,var(--paper) 85%,var(--accent))}
   100%{background-color:var(--paper)}
 }
 @keyframes sweep{0%{opacity:1;background-position:120% 0}100%{opacity:1;background-position:-20% 0}}
@@ -204,5 +203,11 @@ h1{margin:.12em 0 0;font-family:var(--display);font-weight:900;font-size:clamp(7
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-  .ticket:hover{transform:none}
+  .ticket:hover,.ticket:active{transform:none}
+  /* Pick without movement: no flicker, scale or sweep, just soft fades. */
+  .ticket{transition:opacity .6s ease!important}
+  .ticket.is-picked{transform:none;animation:calm 3s ease both!important}
+  .ticket.is-picked .ticket__body{animation:warm 3s ease both!important}
+  .ticket.is-picked .ticket__body::after{content:none}
 }
+@keyframes calm{0%{filter:drop-shadow(0 0 0 transparent) drop-shadow(0 0 0 transparent)}25%,78%{filter:drop-shadow(0 0 2px var(--accent)) drop-shadow(0 0 14px color-mix(in srgb,var(--accent) 70%,transparent))}100%{filter:drop-shadow(0 0 0 transparent) drop-shadow(0 0 0 transparent)}}

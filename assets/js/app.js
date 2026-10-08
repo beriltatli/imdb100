@@ -207,7 +207,7 @@ $("#sort").addEventListener("change", (e) => { state.sort = e.target.value; appl
 $("#clear").addEventListener("click", clearFilters);
 $("#clear2").addEventListener("click", clearFilters);
 
-let lastPick = null, pickTimer = 0;
+let lastPick = null, pickTimer = 0, spotTimer = 0;
 $("#pick").addEventListener("click", () => {
   const unwatched = (f) => !watched.has(f.no);
   let pool = films.filter((f) => unwatched(f) && !f.li.hidden);
@@ -225,10 +225,14 @@ $("#pick").addEventListener("click", () => {
   f.btn.focus({ preventScroll: true });
   // Light the ticket up once the smooth scroll has (roughly) brought it into view.
   clearTimeout(pickTimer);
+  clearTimeout(spotTimer);
+  grid.classList.remove("spotlight");
   document.querySelectorAll(".ticket.is-picked").forEach((t) => t.classList.remove("is-picked"));
   pickTimer = setTimeout(() => {
+    grid.classList.add("spotlight");
     f.btn.classList.add("is-picked");
-    pickTimer = setTimeout(() => f.btn.classList.remove("is-picked"), 3400);
+    spotTimer = setTimeout(() => grid.classList.remove("spotlight"), 2300);
+    pickTimer = setTimeout(() => f.btn.classList.remove("is-picked"), 3100);
   }, inView || reduceMotion.matches ? 0 : 550);
   const out = $("#pickOut");
   out.textContent = "Tonight: ";
