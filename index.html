@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>100 Films — Watchlist</title>
+<meta name="description" content="A personal watchlist of 100 films. Tick off a ticket for every film you watch.">
+<meta name="theme-color" content="#15110E">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="100 Films — Watchlist">
+<meta property="og:description" content="A personal watchlist of 100 films. Tick off a ticket for every film you watch.">
+<meta property="og:image" content="assets/img/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=Archivo+Narrow:wght@500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="wrap hero">
+  <div class="bulbs" aria-hidden="true"></div>
+  <div class="hero__grid">
+    <div>
+      <p class="eyebrow">Personal watchlist · Screenings 001–100</p>
+      <h1>100 Films</h1>
+      <p class="subtitle">Tick off a ticket for every film you watch</p>
+    </div>
+    <aside class="stats" aria-label="Progress">
+      <div class="label">Watched</div>
+      <div class="stats__count"><output id="count" aria-live="polite">0</output><span>/ 100</span></div>
+      <div class="bar" id="bar" role="progressbar" aria-label="Films watched" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div>
+      <div class="stats__meta"><span id="hoursWatched">0h watched</span><span id="hoursLeft">0h to go</span></div>
+      <button type="button" class="btn btn--accent" id="pick">🎲 Pick tonight's film</button>
+      <p class="pick-out" id="pickOut" aria-live="polite"></p>
+    </aside>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="wrap">
+    <div class="toolbar__row" role="search">
+      <label class="search">
+        <span class="sr-only">Search films</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="q" placeholder="Search by title or year" autocomplete="off" spellcheck="false">
+        <kbd aria-hidden="true">/</kbd>
+      </label>
+      <div class="seg" role="group" aria-label="Status" id="status">
+        <button type="button" data-status="all" aria-pressed="true">All</button>
+        <button type="button" data-status="todo" aria-pressed="false">To watch</button>
+        <button type="button" data-status="watched" aria-pressed="false">Watched</button>
+      </div>
+      <label class="sr-only" for="sort">Sort by</label>
+      <select class="select" id="sort">
+        <option value="list">List order</option>
+        <option value="old">Oldest first</option>
+        <option value="new">Newest first</option>
+        <option value="short">Shortest first</option>
+        <option value="long">Longest first</option>
+        <option value="az">Title A–Z</option>
+      </select>
+    </div>
+    <div class="toolbar__row" style="margin-top:10px">
+      <div class="chips" role="group" aria-label="Filter by era" id="chips"></div>
+    </div>
+    <div class="toolbar__sub">
+      <span id="resultCount" aria-live="polite">Showing all 100 films</span>
+      <button type="button" class="link" id="clear" hidden>Clear filters</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <ul class="grid" id="grid" aria-label="Films"></ul>
+  <div class="empty" id="empty" hidden>
+    <strong>No screenings found</strong>
+    <p>No film matches these filters.</p>
+    <button type="button" class="btn btn--ghost" id="clear2">Clear filters</button>
+  </div>
+  <noscript><p class="empty">This watchlist needs JavaScript enabled.</p></noscript>
+</main>
+
+<footer class="wrap">
+  <div class="foot">
+    <section aria-labelledby="eraHead">
+      <div class="label" id="eraHead" style="color:var(--ink-3)">Progress by era</div>
+      <div class="eras" id="eras"></div>
+    </section>
+    <div class="foot__side">
+      <div class="foot__total" id="total"></div>
+      <div class="swatches" role="group" aria-label="Accent color" id="swatches"></div>
+      <button type="button" class="btn btn--ghost" id="reset">Reset progress</button>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/films.js" defer></script>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>
