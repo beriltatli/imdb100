@@ -4,6 +4,3 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
-
-# Original design-tool mockup and its runtime (kept locally for reference, not part of the site)
-design-reference/
