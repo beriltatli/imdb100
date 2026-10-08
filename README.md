@@ -3,9 +3,9 @@
 A personal watchlist of 100 films, styled as a wall of cinema tickets.
 Click a ticket to stamp it **WATCHED**, and track your progress.
 
-![100 Films screenshot](assets/img/screenshot.png)
+**▶ Live: [beriltatli.github.io/imdb100](https://beriltatli.github.io/imdb100/)**
 
-**Live demo:** `https://<your-username>.github.io/<repo-name>/`
+[![100 Films screenshot](assets/img/screenshot.png)](https://beriltatli.github.io/imdb100/)
 
 ## Features
 
@@ -45,15 +45,18 @@ python3 -m http.server 8000
 # then open http://localhost:8000
 ```
 
-## Publish with GitHub Pages
+## Deployment
 
-1. Push this folder to a GitHub repository.
-2. In the repo, go to **Settings → Pages**.
-3. Under **Build and deployment**, choose **Deploy from a branch**, select `main` and `/ (root)`, then **Save**.
-4. After a minute the site is live at `https://<your-username>.github.io/<repo-name>/`.
+The site is served by GitHub Pages from the `main` branch (root folder):
+**Settings → Pages → Deploy from a branch → `main` / `/ (root)`**.
+Every push to `main` updates [beriltatli.github.io/imdb100](https://beriltatli.github.io/imdb100/) within a minute or two.
 
-> For link previews (Slack, X, WhatsApp…) to show the image, change the `og:image` tag in
-> `index.html` to the full URL, e.g. `https://<your-username>.github.io/<repo-name>/assets/img/og-image.png`.
+### Use it for your own list
+
+1. Fork this repo (or clone it into a new one).
+2. Edit `assets/js/films.js` with your films.
+3. Enable GitHub Pages as above; your copy is live at `https://beriltatli.github.io/<repo-name>/`.
+4. Update the `og:url` and `og:image` URLs in `index.html` so link previews point to your copy.
 
 ## Customize
 
